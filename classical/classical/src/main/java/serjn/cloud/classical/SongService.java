@@ -21,21 +21,21 @@ public class SongService {
 
         list.add(ClassicalSong.builder()
                 .author("class_author2")
-                .durability(124)
+                .durability(125)
                 .name("class_song2")
-                .year(2014).build());
+                .year(2015).build());
 
         list.add(ClassicalSong.builder()
                 .author("class_author3")
-                .durability(124)
+                .durability(126)
                 .name("class_song3")
-                .year(2014).build());
+                .year(2016).build());
 
         list.add(ClassicalSong.builder()
                 .author("class_author4")
-                .durability(124)
+                .durability(127)
                 .name("class_song4")
-                .year(2014).build());
+                .year(2017).build());
 
         Collections.shuffle(list, new Random());
 

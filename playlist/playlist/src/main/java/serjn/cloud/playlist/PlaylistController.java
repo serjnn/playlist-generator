@@ -1,7 +1,7 @@
 package serjn.cloud.playlist;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,16 +16,16 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class PlaylistController {
 
-    @Autowired
-    RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
 
-    @PostMapping("/playlist")
-    public Playlist getPlaylist(@RequestBody Map<String,Integer> req){
-        List<Genre> genreList = req
+    @PostMapping("/generatePlaylist")
+    public Playlist generatePlaylist(@RequestBody Map<String, Integer> request) {
+        List<Genre> genreList = request
                 .entrySet()
                 .stream()
                 .map(this::getUrl)
@@ -35,12 +35,12 @@ public class PlaylistController {
                 .toList();
 
 
-return Playlist.builder().title("playlist").genres(genreList).build();
+        return Playlist.builder().title("playlist").genres(genreList).build();
 
     }
 
     private String getUrl(Map.Entry<String, Integer> entry) {
 
-        return "http://"+entry.getKey()+"/getsongs?amount=" + entry.getValue();
+        return "http://" + entry.getKey() + "/api/v1/getSongs?amount=" + entry.getValue();
     }
 }
